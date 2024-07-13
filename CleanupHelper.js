@@ -13,7 +13,7 @@ class CleanupHelper {
 			"specjalnoscP": "geofizyka stosowana",
 			"krajP": null,
 		};
-		/** Skip propeties like that in a main object. */
+		/** Skip array-propeties like that in a main object. */
 		this.skipKeys = {
 			"maile": [],
 			"praceBadawcze": [],
@@ -55,6 +55,12 @@ class CleanupHelper {
 			if (key in this.keys) {
 				short[key] = value;
 			} else if (Array.isArray(value)) {
+				if (key in this.skipKeys) {
+					if (value.length) {
+						short[key] = value.length;
+					}
+					continue;
+				}
 				const shortArray = this.shortenArray(value);
 				if (shortArray && shortArray.length) {
 					short[key] = shortArray;
