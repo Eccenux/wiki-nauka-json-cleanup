@@ -1,8 +1,14 @@
 const path = require('path');
 const { JsonPrettifier } = require('./JsonPrettifier');
 
-const jsonPrettifier = new JsonPrettifier();
+const baseDir = path.join('..', 'processor-io');
+const jsonPrettifier = new JsonPrettifier({
+	raw: path.join(baseDir, 'json'),
+	full: path.join(baseDir, 'full_pretty'),
+	short: path.join(baseDir, 'short'),
+});
 
-// const targetDirectory = path.join('.', 'json', '000-009', '006k');
-const targetDirectory = path.join('..', 'processor-io', 'json');
-jsonPrettifier.processDirectorySync(targetDirectory);
+// const subdir = path.join('000-009', '006k');
+const subdir = '';
+const mode = 'raw';
+jsonPrettifier.processDirectorySync(subdir, mode);
